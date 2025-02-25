@@ -21,7 +21,7 @@ npm install @mixgeeker/node-escpos-win
 - Windows 操作系统
 - Node.js 14.0.0 或更高版本
 - Windows SDK（用于编译 C++ 代码）
-- Visual Studio Build Tools
+- Visual Studio Build Tools （用于编译 C++ 代码）
 
 ## 基本使用
 
