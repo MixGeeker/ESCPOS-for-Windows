@@ -1,0 +1,27 @@
+{
+  "name": "escpos-win",
+  "version": "1.0.0",
+  "description": "ESC/POS printer driver for Node.js on Windows",
+  "main": "index.js",
+  "scripts": {
+    "install": "node-gyp rebuild",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "escpos",
+    "printer",
+    "windows",
+    "pos"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "iconv-lite": "^0.6.3",
+    "node-addon-api": "^7.1.0"
+  },
+  "devDependencies": {
+    "node-gyp": "^10.0.1"
+  },
+  "gypfile": true
+}
