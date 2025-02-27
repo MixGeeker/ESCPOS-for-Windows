@@ -26,7 +26,7 @@ npm install @mixgeeker/node-escpos-win
 ## 基本使用
 
 ```javascript
-const ESCPOSPrinter = require('node-escpos-win');
+const ESCPOSPrinter = require('@mixgeeker/node-escpos-win');
 
 // 创建打印机实例，参数为打印机名称
 const printer = new ESCPOSPrinter('Your Printer Name');
