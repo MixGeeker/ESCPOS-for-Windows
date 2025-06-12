@@ -299,6 +299,91 @@ class ESCPOSPrinter {
             throw new Error(`图片打印失败: ${error.message}`);
         }
     }
+
+    // 处理base64图片数据并返回打印数据
+    async processImageFromBase64(base64Data, options = {}) {
+        const {
+            width = 384,      // 默认打印宽度（针对58mm打印纸，可打印384点）
+            threshold = 128,  // 黑白转换阈值
+            dither = true    // 是否使用抖动算法
+        } = options;
+
+        try {
+            // 处理base64数据，移除data URL前缀（如果存在）
+            let cleanBase64 = base64Data;
+            if (base64Data.startsWith('data:')) {
+                const commaIndex = base64Data.indexOf(',');
+                if (commaIndex !== -1) {
+                    cleanBase64 = base64Data.substring(commaIndex + 1);
+                }
+            }
+
+            // 将base64转换为Buffer
+            const imageBuffer = Buffer.from(cleanBase64, 'base64');
+
+            // 使用Jimp处理图片
+            const image = await Jimp.read(imageBuffer);
+
+            // 调整图片大小，保持宽高比
+            image.scaleToFit(width, Jimp.AUTO);
+
+            // 转换为灰度图
+            image.grayscale();
+
+            if (dither) {
+                // 使用 Floyd-Steinberg 抖动算法
+                image.dither16();
+            } else {
+                // 简单的黑白转换
+                image.threshold({ max: threshold });
+            }
+
+            // 获取图片尺寸
+            const imgWidth = image.getWidth();
+            const imgHeight = image.getHeight();
+
+            // 计算每行字节数（8个点一个字节）
+            const bytesPerLine = Math.ceil(imgWidth / 8);
+
+            // 准备打印数据
+            const printData = [];
+            const header = Buffer.concat([
+                ESCPOSPrinter.imageCommands.S8_HIGH_DENSITY,
+                Buffer.from([bytesPerLine & 0xff, (bytesPerLine >> 8) & 0xff]),
+                Buffer.from([imgHeight & 0xff, (imgHeight >> 8) & 0xff])
+            ]);
+            printData.push(header);
+
+            // 转换图片数据为打印机位图格式
+            for (let y = 0; y < imgHeight; y++) {
+                const row = new Uint8Array(bytesPerLine);
+                for (let x = 0; x < imgWidth; x++) {
+                    const pixel = Jimp.intToRGBA(image.getPixelColor(x, y));
+                    const isBlack = pixel.r < threshold;
+                    if (isBlack) {
+                        const byteIndex = Math.floor(x / 8);
+                        const bitIndex = 7 - (x % 8);
+                        row[byteIndex] |= (1 << bitIndex);
+                    }
+                }
+                printData.push(Buffer.from(row));
+            }
+
+            return Buffer.concat(printData);
+        } catch (error) {
+            throw new Error(`Base64图片处理失败: ${error.message}`);
+        }
+    }
+
+    // 从base64数据打印图片
+    async printImageFromBase64(base64Data, options = {}) {
+        try {
+            const imageData = await this.processImageFromBase64(base64Data, options);
+            return this.print(imageData);
+        } catch (error) {
+            throw new Error(`Base64图片打印失败: ${error.message}`);
+        }
+    }
 }
 
 module.exports = ESCPOSPrinter; 

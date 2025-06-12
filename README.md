@@ -82,6 +82,16 @@ printer.printImage('path/to/image.jpg', {
   console.log('图片打印结果:', success);
 });
 
+// Base64图片打印
+const base64Image = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
+printer.printImageFromBase64(base64Image, {
+  width: 384,
+  threshold: 128,
+  dither: true
+}).then((success) => {
+  console.log('Base64图片打印结果:', success);
+});
+
 // 条形码打印
 printer.printBarcode('1234567890', 'EAN13', {
   width: 3,

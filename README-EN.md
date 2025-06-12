@@ -82,6 +82,16 @@ printer.printImage('path/to/image.jpg', {
   console.log('Image print result:', success);
 });
 
+// Base64 image printing
+const base64Image = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
+printer.printImageFromBase64(base64Image, {
+  width: 384,
+  threshold: 128,
+  dither: true
+}).then((success) => {
+  console.log('Base64 image print result:', success);
+});
+
 // Barcode printing
 printer.printBarcode('1234567890', 'EAN13', {
   width: 3,
@@ -207,6 +217,16 @@ processImage(
 
 printImage(
   imagePath: string, 
+  options?: ImageProcessingOptions
+): Promise<boolean>
+
+processImageFromBase64(
+  base64Data: string, 
+  options?: ImageProcessingOptions
+): Promise<Buffer>
+
+printImageFromBase64(
+  base64Data: string, 
   options?: ImageProcessingOptions
 ): Promise<boolean>
 ```

@@ -275,6 +275,22 @@ declare class ESCPOSPrinter {
    */
   printImage(imagePath: string, options?: ImageProcessingOptions): Promise<boolean>;
 
+  /**
+   * Process image from base64 data for printing
+   * @param base64Data Base64 encoded image data (with or without data URL prefix)
+   * @param options Image processing options
+   * @returns Promise resolving to print-ready buffer
+   */
+  processImageFromBase64(base64Data: string, options?: ImageProcessingOptions): Promise<Buffer>;
+
+  /**
+   * Print image from base64 data
+   * @param base64Data Base64 encoded image data (with or without data URL prefix)
+   * @param options Image processing options
+   * @returns Promise resolving to success status
+   */
+  printImageFromBase64(base64Data: string, options?: ImageProcessingOptions): Promise<boolean>;
+
   // Private properties (for completeness)
   private printer: NativePrinter;
   private currentCharset: CharacterSet;
