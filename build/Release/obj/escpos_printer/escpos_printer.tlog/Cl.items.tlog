@@ -1,2 +1,2 @@
-C:\Users\LinkT\OneDrive\开发\收银系统\node模块\打印机模块\src\printer.cpp;C:\Users\LinkT\OneDrive\开发\收银系统\node模块\打印机模块\build\Release\obj\escpos_printer\src\printer.obj
-C:\Users\LinkT\OneDrive\开发\收银系统\node模块\打印机模块\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\LinkT\OneDrive\开发\收银系统\node模块\打印机模块\build\Release\obj\escpos_printer\win_delay_load_hook.obj
+D:\ESCPOS-for-Windows\src\printer.cpp;D:\ESCPOS-for-Windows\build\Release\obj\escpos_printer\src\printer.obj
+D:\ESCPOS-for-Windows\node_modules\node-gyp\src\win_delay_load_hook.cc;D:\ESCPOS-for-Windows\build\Release\obj\escpos_printer\win_delay_load_hook.obj
