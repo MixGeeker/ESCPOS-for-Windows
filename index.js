@@ -1,15 +1,36 @@
-const { Printer } = require('bindings')('escpos_printer');
+let Printer;
+try {
+    if (process.platform === 'win32') {
+        Printer = require('bindings')('escpos_printer').Printer;
+    } else {
+        throw new Error('This package only works on Windows platforms');
+    }
+} catch (error) {
+    if (process.platform !== 'win32') {
+        console.warn('Warning: @mixgeeker/node-escpos-win only works on Windows platforms. Native printer functionality will not be available.');
+        Printer = null;
+    } else {
+        throw error;
+    }
+}
+
 const iconv = require('iconv-lite');
 const Jimp = require('jimp');
 
 class ESCPOSPrinter {
     constructor(printerName) {
+        if (!Printer) {
+            throw new Error('ESCPOSPrinter is only supported on Windows platforms');
+        }
         this.printer = new Printer(printerName);
         this.currentCharset = 'ASCII'; // 默认ASCII字符集
     }
 
     // 获取系统打印机列表
     static getPrinterList() {
+        if (!Printer) {
+            throw new Error('getPrinterList is only supported on Windows platforms');
+        }
         return Printer.getPrinterList();
     }
 

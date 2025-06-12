@@ -3,11 +3,12 @@
   "version": "1.0.14",
   "description": "ESC/POS printer driver for Node.js on Windows, supporting both English and Chinese",
   "main": "index.js",
+  "types": "index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "install": "node-gyp rebuild",
+    "install": "node -e \"if (process.platform === 'win32') { const { execSync } = require('child_process'); execSync('node-gyp rebuild', { stdio: 'inherit' }); } else { console.log('Skipping build on non-Windows platform'); }\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -38,23 +39,21 @@
     "node-addon-api": "^7.1.0"
   },
   "devDependencies": {
-    "node-gyp": "^10.0.1"
+    "node-gyp": "^10.0.1",
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "os": [
-    "win32"
-  ],
-  "cpu": [
-    "x64"
-  ],
   "gypfile": true,
   "files": [
     "index.js",
+    "index.d.ts",
     "src/",
     "binding.gyp",
     "README.md",
+    "README-EN.md",
     "LICENSE"
   ]
 }

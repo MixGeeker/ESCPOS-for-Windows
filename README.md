@@ -8,6 +8,8 @@
 - 自动处理中文编码（GBK）
 - 支持常用的 ESC/POS 命令
 - 支持文本样式设置（加粗、对齐、大小等）
+- **完整的 TypeScript 支持**，提供类型安全和 IDE 智能提示
+- 支持图片打印和二维码/条形码打印
 - 仅支持 Windows 系统
 
 ## 安装
@@ -56,6 +58,52 @@ printer.print(printData);
 // 最后关闭打印机连接
 printer.close();
 ```
+
+## TypeScript 使用
+
+本库提供完整的 TypeScript 类型定义，支持类型安全和 IDE 智能提示。
+
+```typescript
+import ESCPOSPrinter from '@mixgeeker/node-escpos-win';
+
+// 创建打印机实例，TypeScript 会提供完整的类型支持
+const printer = new ESCPOSPrinter('Your Printer Name');
+
+// 所有方法都有类型定义，IDE 会提供智能提示
+printer.printChinese('你好，世界');
+printer.printAscii('Hello World');
+
+// 图片打印支持完整的选项类型定义
+printer.printImage('path/to/image.jpg', {
+  width: 384,
+  threshold: 128,
+  dither: true
+}).then((success) => {
+  console.log('图片打印结果:', success);
+});
+
+// 条形码打印
+printer.printBarcode('1234567890', 'EAN13', {
+  width: 3,
+  height: 64,
+  position: 2
+});
+
+// 二维码打印
+printer.printQRCode('https://example.com', {
+  size: 8,
+  errorLevel: 49
+});
+
+printer.close();
+```
+
+### TypeScript 优势
+
+- **类型安全**: 编译时检查类型错误，避免运行时异常
+- **IDE 智能提示**: 完整的代码补全和参数提示
+- **更好的开发体验**: 支持重构、跳转定义等现代 IDE 功能
+- **文档集成**: 类型定义本身就是最好的 API 文档
 
 ## 支持的 ESC/POS 命令
 
