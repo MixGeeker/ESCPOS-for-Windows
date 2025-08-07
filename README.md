@@ -1,5 +1,5 @@
 # node-escpos-win
-
+注意：GitHub上的文件实际上不是最新的，最新的在npmjs上面
 这是一个用于 Windows 系统的 ESC/POS 打印机驱动程序，使用 Node.js 和 C++ 实现。支持中英文混合打印，自动编码转换。
 
 ## 特性
@@ -605,3 +605,4 @@ MIT
 ## 问题反馈
 
 如果你在使用过程中遇到任何问题，请在 [GitHub Issues](https://github.com/MixGeeker/ESCPOS-for-Windows/issues) 中提出。
+
