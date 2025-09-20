@@ -1,5 +1,5 @@
 # node-escpos-win
-注意：GitHub上的文件实际上不是最新的，最新的在npmjs上面。
+
 这是一个用于 Windows 系统的 ESC/POS 打印机驱动程序，使用 Node.js 和 C++ 实现。支持中英文混合打印，自动编码转换。
 
 ## 特性
@@ -19,6 +19,37 @@
 npm i @mixgeeker/node-escpos-win
 ```
 
+## 导入与类型支持（自 v2.0.0）
+
+- 使用 ESM：
+```javascript
+import ESCPOSPrinter, { ESCPOSPrinter as Named } from '@mixgeeker/node-escpos-win';
+
+const printer = new ESCPOSPrinter('Your Printer Name');
+```
+
+- 使用 CommonJS（保持兼容）：
+```javascript
+// import ESCPOSPrinter from '@mixgeeker/node-escpos-win';
+const ESCPOSPrinter = require('@mixgeeker/node-escpos-win');
+
+const printer = new ESCPOSPrinter('Your Printer Name');
+```
+
+- TypeScript 类型（自动提供声明）：
+```ts
+import ESCPOSPrinter, { type PrinterInfo, type BarcodeOptions, type QROptions, type ImageOptions } from '@mixgeeker/node-escpos-win';
+
+const printers: PrinterInfo[] = ESCPOSPrinter.getPrinterList();
+```
+
+## 迁移指南（v2.0.0）
+
+- CommonJS 用户：无需更改，原有 `require('@mixgeeker/node-escpos-win')` 保持可用。
+- ESM/TS 用户：可直接使用 `import ESCPOSPrinter from '@mixgeeker/node-escpos-win'`。
+- 类型支持：包内已内置 `index.d.ts`，自动获得完整 API 类型提示。
+- 运行时与 API 无破坏性变更：`index.js` 仍为实现入口，`index.mjs` 仅为 ESM 包装层。
+
 ## 系统要求
 
 - Windows 操作系统
@@ -29,6 +60,9 @@ npm i @mixgeeker/node-escpos-win
 ## 基本使用
 
 ```javascript
+// ESM
+// import ESCPOSPrinter from '@mixgeeker/node-escpos-win';
+// CJS
 const ESCPOSPrinter = require('@mixgeeker/node-escpos-win');
 
 // 创建打印机实例，参数为打印机名称
@@ -71,6 +105,7 @@ printer.close();
 
 ### 图片打印示例
 ```javascript
+// import ESCPOSPrinter from '@mixgeeker/node-escpos-win';
 const ESCPOSPrinter = require('@mixgeeker/node-escpos-win');
 const printer = new ESCPOSPrinter('Your Printer Name');
 
@@ -163,8 +198,8 @@ node test_image.js "打印机名称" "图片路径"
 
 ### 字体大小（新方法）
 - `ESCPOSPrinter.commands.TEXT_SIZE(width, height)`: 设置字体宽度和高度
-  - `width`: 宽度倍数（0-7，0表示正常宽度，1表示2倍宽度，以此类推）
-  - `height`: 高度倍数（0-7，0表示正常高度，1表示2倍高度，以此类推）
+  - `width`: 宽度倍数（0-7，0表示正常宽度，1表示2倍宽度，2表示三倍高度，以此类推）
+  - `height`: 高度倍数（0-7，0表示正常高度，1表示2倍高度，2表示三倍高度，以此类推）
 - `printer.setTextSize(width, height)`: 设置字体大小
 - `printer.setTextNormal()`: 设置为正常大小
 - `printer.setTextDoubleHeight()`: 设置为双倍高度
@@ -261,6 +296,7 @@ new ESCPOSPrinter(printerName: string)
 
 ### 打印收据示例
 ```javascript
+// import ESCPOSPrinter from '@mixgeeker/node-escpos-win';
 const ESCPOSPrinter = require('@mixgeeker/node-escpos-win');
 const printer = new ESCPOSPrinter('Your Printer Name');
 
@@ -408,6 +444,7 @@ printer.print(printer.textToBuffer('以下是不同的字体大小示例：\n', 
 // 正常大小
 printer.setTextNormal();
 printer.print(printer.textToBuffer('1. 正常大小文本\n', 'GBK'));
+printer.print(printer.textToBuffer('ENGLISH\n'));
 
 // 双倍高度
 printer.setTextDoubleHeight();
@@ -552,6 +589,12 @@ Get-Printer | Select-Object Name
 
 ## 版本历史
 
+### v2.0.0
+- 新增 ESM 入口 `index.mjs`，支持 `import` 导入
+- 新增 TypeScript 类型声明 `index.d.ts`
+- `package.json` 增加 `exports`/`module`/`types`，同时兼容 CJS 与 ESM
+- 文档更新：示例增加 ESM/TS 用法与迁移指南
+
 ### v1.0.14
 - 添加字体类型设置功能（FONT_A和FONT_B）
 - 优化文本大小设置功能，支持自定义大小
@@ -605,5 +648,3 @@ MIT
 ## 问题反馈
 
 如果你在使用过程中遇到任何问题，请在 [GitHub Issues](https://github.com/MixGeeker/ESCPOS-for-Windows/issues) 中提出。
-
-
