@@ -453,16 +453,6 @@
     "nodedir": "C:\\Users\\LinkT\\AppData\\Local\\node-gyp\\Cache\\22.14.0",
     "python": "C:\\Users\\LinkT\\AppData\\Local\\Programs\\Python\\Python313\\python3.13t.exe",
     "standalone_static_library": 1,
-    "msbuild_path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
-    "cache": "C:\\Users\\LinkT\\AppData\\Local\\npm-cache",
-    "globalconfig": "C:\\nvm4w\\nodejs\\etc\\npmrc",
-    "global_prefix": "C:\\nvm4w\\nodejs",
-    "init_module": "C:\\Users\\LinkT\\.npm-init.js",
-    "local_prefix": "C:\\Users\\LinkT\\OneDrive\\开发\\收银系统\\node模块\\打印机模块",
-    "node_gyp": "C:\\Users\\LinkT\\AppData\\Local\\nvm\\v22.14.0\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js",
-    "npm_version": "10.9.2",
-    "prefix": "C:\\nvm4w\\nodejs",
-    "userconfig": "C:\\Users\\LinkT\\.npmrc",
-    "user_agent": "npm/10.9.2 node/v22.14.0 win32 x64 workspaces/false"
+    "msbuild_path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe"
   }
 }
